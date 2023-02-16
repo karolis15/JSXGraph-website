@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>JSXGraph website</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js" type="text/javascript" charset="UTF-8"></script>
+    <!-- The next line is optional: MathJax -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+  </head>
+  <body>
+    
+<!-- input fields -->
+Enter x coordinates for point A:<input type="number" id="xA" value="" style="width: 2rem;">
+Enter y coordinates for point A:<input type="number" id="yA" value="" style="width: 2rem;">
+Enter x coordinates for point B:<input type="number" id="xB" value="" style="width: 2rem;">
+Enter y coordinates for point B:<input type="number" id="yB" value="" style="width: 2rem;"><br>
+<!-- test -->
+<!-- test -->
+
+<!-- grid button -->
+<!-- <input type="button" id="myButton" value="Grid" onclick="Buttontoggle();"> -->
+<!-- grid button -->
+
+<!-- Pick a color -->
+<select id="colorPicker">
+    <option selected="true" disabled="disabled">Select color</option>
+    <option value="#FF0000">Red</option>
+    <option value="#19189E">Blue</option>
+    <option value="#00512D">Green</option>
+</select>
+<!-- Pick a color -->
+
+<!-- line width -->
+Enter line width: <input type="number" id="width" value="" style="width: 2rem;">
+<!-- line width -->
+
+<!-- Pick line type -->
+<select id="typePicker">
+    <option selected="true" disabled="disabled">Select line</option>
+    <option value="0">solid </option>
+    <option value="1">dotted </option>
+    <option value="2">small dashes</option>
+    <option value="3">normal dashes</option>
+    <option value="4">long dashes</option>
+    <option value="5">alternating medium and big dashes and large gaps</option>
+    <option value="6">alternating medium and big dashes and small gaps</option>
+</select>
+<!-- Pick line type -->
+
+<!-- submit -->
+<button type="button" onclick="drawLine()">Draw line</button>
+<!-- submit -->
+
+<!-- animation button -->
+<!-- <button type="button" onclick="startAnimation1()">Start animation</button> -->
+<!-- animation button -->
+
+    <!-- drawing canvas -->
+  <div id="jxgbox" class="jxgbox" style="width:100%; height:60rem;"></div>
+    <!-- drawing canvas -->
+
+    <!-- JS -->
+  <script>
+
+
+
+    // Grid toggle 
+// function Buttontoggle(){
+                        
+//   var t = document.getElementById("myButton");
+//   if(t.value=="Remove Grid"){
+//     var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-10, 10, 10, -10]});
+//     grid = board.create('grid', []);
+//       t.value="Grid";}
+//   else if(t.value=="Grid"){
+//     var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-10, 10, 10, -10]});
+//     board.removeObject ('grid');
+
+//       t.value="Remove Grid";}
+// }
+    // Grid toggle
+
+
+drawLine = function() {
+
+    var pointxA = document.getElementById("xA").value;
+    var pointyA = document.getElementById("yA").value;
+    var pointxB = document.getElementById("xB").value;
+    var pointyB = document.getElementById("yB").value;
+    var lineColor = document.getElementById("colorPicker").value;
+    var lineWidth = document.getElementById("width").value;
+    var lineType = document.getElementById("typePicker").value;
+    var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-10, 10, 10, -10]});
+
+    grid = board.create('grid', []);
+    var p0 = board.create('point', [0,0], {name:'T',trace:true});
+    var a = board.create('point',[pointxA,pointyA], {name:'A',trace:true});
+    var b = board.create('point',[pointxB,pointyB], {name:'A',trace:true});
+    var l = board.create('line',[a, b], {strokeColor:lineColor,strokeWidth:lineWidth, dash:lineType});
+    var t = board.create('transform', [function(){return p0.X();},function(){return p0.Y();}], {type:'translate'});
+    t.bindTo([a,b]);  // The translation is bound to the points, but the points are not updated, yet
+
+
+}
+function startAnimation1() {
+  var pointxA = document.getElementById("xA").value;
+    var pointyA = document.getElementById("yA").value;
+    var pointxB = document.getElementById("xB").value;
+    var pointyB = document.getElementById("yB").value;
+    var lineColor = document.getElementById("colorPicker").value;
+    var lineWidth = document.getElementById("width").value;
+    var lineType = document.getElementById("typePicker").value;
+    var board = JXG.JSXGraph.initBoard('jxgbox', {boundingbox: [-10, 10, 10, -10]});
+
+    grid = board.create('grid', []);
+    var p0 = board.create('point', [0,0], {name:'T',trace:true});
+    var a = board.create('point',[pointxA,pointyA], {name:'A',trace:true});
+    var b = board.create('point',[pointxB,pointyB], {name:'A',trace:true});
+    var l = board.create('line',[a, b], {strokeColor:lineColor,strokeWidth:lineWidth, dash:lineType});
+    var t = board.create('transform', [function(){return p0.X();},function(){return p0.Y();}], {type:'translate'});
+    t.bindTo([a,b]);  // The translation is bound to the points, but the points are not updated, yet
+    p0.moveTo([-5,-8],10500);
+         
+}
+
+
+
+  </script>
+  <span onClick="startAnimation1()" style="color:blue">Click here, to start animation 1</span>
+  </body>
+</html>
